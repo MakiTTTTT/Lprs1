@@ -1,0 +1,567 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/simulation/modelsim
+Ealu
+Z1 w1669740762
+Z2 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z3 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+Z4 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z5 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z6 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/alu.vhd
+Z7 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/alu.vhd
+l0
+L17
+V?l9eC3Y7k<j1X8aOJAa?O0
+!s100 Rd4l_R6Dle61bUHX<7h?e0
+Z8 OV;C;10.5b;63
+31
+Z9 !s110 1673871622
+!i10b 1
+Z10 !s108 1673871622.000000
+Z11 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/alu.vhd|
+Z12 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/alu.vhd|
+!i113 1
+Z13 o-93 -work work
+Z14 tExplicit 1 CvgOpt 0
+Aarch
+R2
+R3
+R4
+R5
+Z15 DEx4 work 3 alu 0 22 ?l9eC3Y7k<j1X8aOJAa?O0
+l35
+L29
+VknfhXEF7JTM?:o8P5^Bn`1
+!s100 KMc5JL]EIo9S9;ZUdC04X0
+R8
+31
+R9
+!i10b 1
+R10
+R11
+R12
+!i113 1
+R13
+R14
+Ecnt
+Z16 w1639058474
+R2
+R3
+R4
+R5
+R0
+Z17 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cnt.vhd
+Z18 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cnt.vhd
+l0
+L19
+VoMWE70GR38K4_DeSII=7E3
+!s100 U;k[d:`Hl=CiWhA9@0ig33
+R8
+31
+R9
+!i10b 1
+R10
+Z19 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cnt.vhd|
+Z20 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cnt.vhd|
+!i113 1
+R13
+R14
+Aarch
+R2
+R3
+R4
+R5
+Z21 DEx4 work 3 cnt 0 22 oMWE70GR38K4_DeSII=7E3
+l33
+L29
+VkDoEV:<0`HKXf7ckH?OfO0
+!s100 9SIVb62LYJz>Q7mfU28h>3
+R8
+31
+R9
+!i10b 1
+R10
+R19
+R20
+!i113 1
+R13
+R14
+Econtrol_unit
+Z22 w1670010200
+R4
+R5
+R0
+Z23 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/control_unit.vhd
+Z24 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/control_unit.vhd
+l0
+L16
+Vc^gaVnYNM>SEn6[;7[35f2
+!s100 K=^EO11P]@F>lM[_dAKz=1
+R8
+31
+Z25 !s110 1673871621
+!i10b 1
+Z26 !s108 1673871621.000000
+Z27 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/control_unit.vhd|
+Z28 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/control_unit.vhd|
+!i113 1
+R13
+R14
+Aarch
+R4
+R5
+Z29 DEx4 work 12 control_unit 0 22 c^gaVnYNM>SEn6[;7[35f2
+l48
+L35
+V6FD@SoMSP:A]8jZbegagN2
+!s100 l8H4AXRT9mDXj>65FbJ^=1
+R8
+31
+R9
+!i10b 1
+R26
+R27
+R28
+!i113 1
+R13
+R14
+Ecounter
+Z30 w1603373338
+Z31 DPx4 ieee 9 math_real 0 22 Sk6CSihbPL<f[^Shm]=KX0
+R2
+R3
+R4
+R5
+R0
+Z32 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/counter.vhd
+Z33 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/counter.vhd
+l0
+L9
+VHA4jm?nC^NPX>TbkP3d6L2
+!s100 T3Hcg44[5YHDW72UdIEe^0
+R8
+31
+R25
+!i10b 1
+R26
+Z34 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/counter.vhd|
+Z35 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/counter.vhd|
+!i113 1
+R13
+R14
+Acounter_arch
+R31
+R2
+R3
+R4
+R5
+Z36 DEx4 work 7 counter 0 22 HA4jm?nC^NPX>TbkP3d6L2
+l35
+L26
+VK7GNXz0egKU[`Qjl6zojC0
+!s100 T5:CjHIii^EDWkO@c0Dld2
+R8
+31
+R25
+!i10b 1
+R26
+R34
+R35
+!i113 1
+R13
+R14
+Ecpu_top
+Z37 w1670009274
+R4
+R5
+R0
+Z38 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cpu_top.vhd
+Z39 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cpu_top.vhd
+l0
+L18
+VfmWi1aP>W@QVzk7n:PAio2
+!s100 l]5A7GnlPNB]KfzWmNI7Z2
+R8
+31
+R9
+!i10b 1
+R10
+Z40 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cpu_top.vhd|
+Z41 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cpu_top.vhd|
+!i113 1
+R13
+R14
+Aarch
+Z42 DEx4 work 3 reg 0 22 lBeQHJ5]]DRa^35NzL`[G2
+Z43 DEx4 work 3 mux 0 22 AIzMgjPazR<OQfS2<3zU[0
+R29
+R21
+R2
+R3
+R15
+R4
+R5
+Z44 DEx4 work 7 cpu_top 0 22 fmWi1aP>W@QVzk7n:PAio2
+l49
+L32
+VJ=V^41<G?Q:76TDajRl7A1
+!s100 6U>T]QN4WE8DCa9kQ1:GU3
+R8
+31
+R9
+!i10b 1
+R10
+R40
+R41
+!i113 1
+R13
+R14
+Edata_ram
+Z45 w1673870687
+R2
+R3
+R4
+R5
+R0
+Z46 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/data_ram.vhd
+Z47 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/data_ram.vhd
+l0
+L17
+Vk4zM>ecTLeJ][77`iiD]<1
+!s100 loC>bbVCYeSC8bS8e^bR40
+R8
+31
+R25
+!i10b 1
+R26
+Z48 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/data_ram.vhd|
+Z49 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/data_ram.vhd|
+!i113 1
+R13
+R14
+Abehavioral
+R2
+R3
+R4
+R5
+Z50 DEx4 work 8 data_ram 0 22 k4zM>ecTLeJ][77`iiD]<1
+l34
+L28
+VogljR4]X3AXD>:Qd=ek0e2
+!s100 KiHNn;i?;ZVGYlkSf_3Ei0
+R8
+31
+R25
+!i10b 1
+R26
+R48
+R49
+!i113 1
+R13
+R14
+Einstr_rom
+R45
+R2
+R3
+R4
+R5
+R0
+Z51 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/instr_rom.vhd
+Z52 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/instr_rom.vhd
+l0
+L17
+VfznU4ER9gX3RaeSS1?FW41
+!s100 aV=LP<e5Ud;:^==ol0gAK1
+R8
+31
+R25
+!i10b 1
+R26
+Z53 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/instr_rom.vhd|
+Z54 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/instr_rom.vhd|
+!i113 1
+R13
+R14
+Abehavioral
+R2
+R3
+R4
+R5
+Z55 DEx4 work 9 instr_rom 0 22 fznU4ER9gX3RaeSS1?FW41
+l26
+L25
+VahHm7b10j5J5Z0@ano<JE2
+!s100 B2EhTkdX2@=0]K8=G`D=G1
+R8
+31
+R25
+!i10b 1
+R26
+R53
+R54
+!i113 1
+R13
+R14
+Emux
+Z56 w1316000584
+R4
+R5
+R0
+Z57 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/mux.vhd
+Z58 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/mux.vhd
+l0
+L15
+VAIzMgjPazR<OQfS2<3zU[0
+!s100 4PDjQ?OU_EC>_W5N>c=K11
+R8
+31
+R25
+!i10b 1
+R26
+Z59 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/mux.vhd|
+Z60 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/mux.vhd|
+!i113 1
+R13
+R14
+Abehavioral
+R4
+R5
+R43
+l31
+L29
+VPY6MX=lbcmPjGB4X:z@kJ1
+!s100 MhCUAQP4hIX0c@B;;HdAX3
+R8
+31
+R25
+!i10b 1
+R26
+R59
+R60
+!i113 1
+R13
+R14
+Epush_buttons_dec_io_ctrl
+Z61 w1609071420
+R2
+R3
+R4
+R5
+R0
+Z62 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/push_buttons_dec_io_ctrl.vhd
+Z63 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/push_buttons_dec_io_ctrl.vhd
+l0
+L19
+VIb[R>l:Z;<h3HeI=oX82N1
+!s100 24`?ab7kROL<@>4a2k7Qn0
+R8
+31
+R25
+!i10b 1
+R26
+Z64 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/push_buttons_dec_io_ctrl.vhd|
+Z65 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/push_buttons_dec_io_ctrl.vhd|
+!i113 1
+R13
+R14
+Abehavioral
+R2
+R3
+R4
+R5
+Z66 DEx4 work 24 push_buttons_dec_io_ctrl 0 22 Ib[R>l:Z;<h3HeI=oX82N1
+l43
+L34
+V4:KDlagf9MdlQVJ^W=[4?3
+!s100 TEj?ULRJBDCc9XJ11nZLg0
+R8
+31
+R25
+!i10b 1
+R26
+R64
+R65
+!i113 1
+R13
+R14
+Ereg
+Z67 w1316603518
+R4
+R5
+R0
+Z68 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/register.vhd
+Z69 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/register.vhd
+l0
+L15
+VlBeQHJ5]]DRa^35NzL`[G2
+!s100 >O3C8Io5_hLNlNAUmP2GA3
+R8
+31
+R25
+!i10b 1
+R26
+Z70 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/register.vhd|
+Z71 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/register.vhd|
+!i113 1
+R13
+R14
+Abehavioral
+R4
+R5
+R42
+l28
+L24
+VA<QG9VPBjQ[]3[lL2FZ982
+!s100 7z8FJQ:6Ba7n[JXcc3>kd3
+R8
+31
+R25
+!i10b 1
+R26
+R70
+R71
+!i113 1
+R13
+R14
+Ergb_matrix_io_ctrl
+Z72 w1670848268
+R2
+R3
+R4
+R5
+R0
+Z73 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/rgb_matrix_io_ctrl.vhd
+Z74 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/rgb_matrix_io_ctrl.vhd
+l0
+L18
+V0Zb2:<Y]UG3WDh6ikS9BT2
+!s100 CUYgBDkF;QTD]cc3H]]Dg3
+R8
+31
+R9
+!i10b 1
+R10
+Z75 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/rgb_matrix_io_ctrl.vhd|
+Z76 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/rgb_matrix_io_ctrl.vhd|
+!i113 1
+R13
+R14
+Abehavioral
+R31
+R36
+R2
+R3
+R4
+R5
+Z77 DEx4 work 18 rgb_matrix_io_ctrl 0 22 0Zb2:<Y]UG3WDh6ikS9BT2
+l57
+L36
+V7aal^W5[=djb7KggCXW@N0
+!s100 F:>Z_7ZDPbl:le^Q15XL[1
+R8
+31
+R9
+!i10b 1
+R10
+R75
+R76
+!i113 1
+R13
+R14
+Etop
+Z78 w1670847816
+R4
+R5
+R0
+Z79 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top.vhd
+Z80 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top.vhd
+l0
+L18
+VA5>@<oNoJA6?VBE;07O9O0
+!s100 2aZkcJRED9aa]OTG6lGFK2
+R8
+31
+R9
+!i10b 1
+R10
+Z81 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top.vhd|
+Z82 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top.vhd|
+!i113 1
+R13
+R14
+Aarch
+R66
+R77
+R50
+R2
+R3
+R55
+R44
+R4
+R5
+DEx4 work 3 top 0 22 A5>@<oNoJA6?VBE;07O9O0
+l55
+L39
+VlWYNT7L3]GWmL7?0E11Rk1
+!s100 d9>5=>eo07XX]DSag6A>D1
+R8
+31
+R9
+!i10b 1
+R10
+R81
+R82
+!i113 1
+R13
+R14
+Etop_tb
+Z83 w1670847628
+R2
+R3
+R4
+R5
+R0
+Z84 8/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top_tb.vhd
+Z85 F/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top_tb.vhd
+l0
+L21
+V47o:WPUA;0Y4QcMW>J:MU0
+!s100 FkR9EMQ1ni62G5]foF0m03
+R8
+31
+R9
+!i10b 1
+R10
+Z86 !s90 -reportprogress|300|-93|-work|work|/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top_tb.vhd|
+Z87 !s107 /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top_tb.vhd|
+!i113 1
+R13
+R14
+Abehavior
+R2
+R3
+R4
+R5
+DEx4 work 6 top_tb 0 22 47o:WPUA;0Y4QcMW>J:MU0
+l70
+L24
+VKezKNS=jbolQESLAbg<8V2
+!s100 JI`IiDI[SO[IYR7UTb4Ye1
+R8
+31
+R9
+!i10b 1
+R10
+R86
+R87
+!i113 1
+R13
+R14

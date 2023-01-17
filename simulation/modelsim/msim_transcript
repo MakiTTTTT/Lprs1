@@ -1,0 +1,446 @@
+# do LPRS1_CPU_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying /opt/intelFPGA/19.1/modelsim_ase/linuxaloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/push_buttons_dec_io_ctrl.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:21 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/push_buttons_dec_io_ctrl.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity push_buttons_dec_io_ctrl
+# -- Compiling architecture Behavioral of push_buttons_dec_io_ctrl
+# End time: 13:20:21 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/counter.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:21 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/counter.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package MATH_REAL
+# -- Compiling entity counter
+# -- Compiling architecture counter_arch of counter
+# End time: 13:20:21 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/register.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:21 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/register.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity reg
+# -- Compiling architecture Behavioral of reg
+# End time: 13:20:21 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/mux.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:21 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/mux.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity mux
+# -- Compiling architecture Behavioral of mux
+# End time: 13:20:21 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/instr_rom.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:21 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/instr_rom.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity instr_rom
+# -- Compiling architecture Behavioral of instr_rom
+# End time: 13:20:21 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/data_ram.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:21 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/data_ram.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity data_ram
+# -- Compiling architecture Behavioral of data_ram
+# End time: 13:20:21 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/control_unit.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:21 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/control_unit.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity control_unit
+# -- Compiling architecture arch of control_unit
+# End time: 13:20:21 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cnt.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:22 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cnt.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity cnt
+# -- Compiling architecture arch of cnt
+# End time: 13:20:22 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/alu.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:22 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/alu.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity alu
+# -- Compiling architecture arch of alu
+# End time: 13:20:22 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/rgb_matrix_io_ctrl.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:22 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/rgb_matrix_io_ctrl.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity rgb_matrix_io_ctrl
+# -- Compiling architecture Behavioral of rgb_matrix_io_ctrl
+# -- Loading package MATH_REAL
+# -- Loading entity counter
+# End time: 13:20:22 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cpu_top.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:22 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/cpu_top.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity cpu_top
+# -- Compiling architecture arch of cpu_top
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading entity alu
+# -- Loading entity cnt
+# -- Loading entity control_unit
+# -- Loading entity mux
+# -- Loading entity reg
+# End time: 13:20:22 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:22 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity top
+# -- Compiling architecture arch of top
+# -- Loading entity cpu_top
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading entity instr_rom
+# -- Loading entity data_ram
+# -- Loading entity rgb_matrix_io_ctrl
+# -- Loading entity push_buttons_dec_io_ctrl
+# End time: 13:20:22 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vcom -93 -work work {/home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top_tb.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:20:22 on Jan 16,2023
+# vcom -reportprogress 300 -93 -work work /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/src/hdl/top_tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity top_tb
+# -- Compiling architecture Behavior of top_tb
+# End time: 13:20:22 on Jan 16,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  top_tb
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs=""+acc"" top_tb 
+# Start time: 13:20:22 on Jan 16,2023
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.top_tb(behavior)
+# Loading work.top(arch)
+# Loading work.cpu_top(arch)
+# Loading work.alu(arch)
+# Loading work.cnt(arch)
+# Loading work.control_unit(arch)
+# Loading work.mux(behavioral)
+# Loading work.reg(behavioral)
+# Loading work.instr_rom(behavioral)
+# Loading work.data_ram(behavioral)
+# Loading ieee.math_real(body)
+# Loading work.rgb_matrix_io_ctrl(behavioral)
+# Loading work.counter(counter_arch)
+# Loading work.push_buttons_dec_io_ctrl(behavioral)
+# 
+# do /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/top_tb_run.do
+# 
+# All is relative to simulation/modelsim/
+# 
+# restart -force
+# delete wave *
+# 
+# set wf top_tb_wave.do
+# top_tb_wave.do
+# 
+# if {[file exists wave.do]} {
+# 	file delete ../../$wf
+# 	file copy wave.do ../../$wf
+# }
+# 
+# do $wf
+# onerror {resume}
+# quietly WaveActivateNextPane {} 0
+# add wave -noupdate -divider {TB}
+# add wave -noupdate /top_tb/iCLK
+# add wave -noupdate /top_tb/inRST
+# add wave -noupdate -radix unsigned /top_tb/oLED
+# add wave -noupdate -divider {Instruction Mem}
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sPC
+# add wave -noupdate /top_tb/uut/cpu_top_i/iINSTR
+# add wave -noupdate /top_tb/uut/cpu_top_i/sPC_LOAD
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sPC_IN
+# add wave -noupdate -divider {Control Unit}
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/cu_i/sY
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/cu_i/sX
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/cu_i/sZ
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/cu_i/sA
+# add wave -noupdate /top_tb/uut/cpu_top_i/cu_i/sI
+# add wave -noupdate /top_tb/uut/cpu_top_i/cu_i/sO
+# add wave -noupdate /top_tb/uut/cpu_top_i/cu_i/sT
+# add wave -noupdate /top_tb/uut/cpu_top_i/cu_i/iZERO
+# add wave -noupdate /top_tb/uut/cpu_top_i/cu_i/iSIGN
+# add wave -noupdate /top_tb/uut/cpu_top_i/cu_i/iCARRY
+# add wave -noupdate -divider {Muxes}
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sMUXA_SEL
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sMUXB_SEL
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sMUXA
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sMUXB
+# add wave -noupdate -divider {ALU}
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/alu_i/iA
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/alu_i/iB
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/alu_i/oC
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/alu_i/oZERO
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/alu_i/oSIGN
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/alu_i/oCARRY
+# add wave -noupdate -divider {Regs}
+# add wave -noupdate /top_tb/uut/cpu_top_i/sREG_WE
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sR0
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sR1
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sR2
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sR3
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sR4
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sR5
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sR6
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/sR7
+# add wave -noupdate -divider {Data Mem}
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/oADDR
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/iDATA
+# add wave -noupdate -radix unsigned /top_tb/uut/cpu_top_i/oDATA
+# add wave -noupdate /top_tb/uut/cpu_top_i/oMEM_WE
+# add wave -noupdate -radix unsigned /top_tb/uut/data_ram_i/rMEM(0)
+# ** Error: (vish-4014) No objects found matching '/top_tb/uut/data_ram_i/rMEM(0)'.
+# Executing ONERROR command at macro /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/top_tb_wave.do line 50
+# add wave -noupdate -radix unsigned /top_tb/uut/data_ram_i/rMEM(1)
+# ** Error: (vish-4014) No objects found matching '/top_tb/uut/data_ram_i/rMEM(1)'.
+# Executing ONERROR command at macro /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/top_tb_wave.do line 51
+# add wave -noupdate -radix unsigned /top_tb/uut/data_ram_i/rMEM(2)
+# ** Error: (vish-4014) No objects found matching '/top_tb/uut/data_ram_i/rMEM(2)'.
+# Executing ONERROR command at macro /home/rtrk/Desktop/ppg_na_casu/PingPong/LPRS1_CPU_RGB_Matrix_PB/top_tb_wave.do line 52
+# add wave -noupdate -divider {Other}
+# TreeUpdate [SetDefaultTree]
+# WaveRestoreCursors {{Cursor 1} {1000000 ps} 0}
+# quietly wave cursor active 1
+# configure wave -namecolwidth 407
+# configure wave -valuecolwidth 100
+# configure wave -justifyvalue left
+# configure wave -signalnamewidth 0
+# configure wave -snapdistance 10
+# configure wave -datasetprefix 0
+# configure wave -rowmargin 4
+# configure wave -childrowmargin 2
+# configure wave -gridoffset 0
+# configure wave -gridperiod 1
+# configure wave -griddelta 40
+# configure wave -timeline 0
+# configure wave -timelineunits ns
+# update
+# WaveRestoreZoom {0 ps} {2 us}
+# 
+# Ignoring uninitialized signals warnings before reset activated.
+# set StdArithNoWarnings 1
+# 1
+# set NumericStdNoWarnings 1
+# 1
+# run 2ps
+# ** Warning: (vsim-3116) Problem reading symbols from linux-gate.so.1 : can not open ELF file.
+# set StdArithNoWarnings 0
+# 0
+# set NumericStdNoWarnings 0
+# 0
+# 
+# Run frame
+# proc rf {} {
+# 	run 133333 ns
+# }
+# 
+# rf
+# # # # # # # # # #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . + + . . + #
+# . . . . . . . . #
+# . . . . . . . . #
+# + . . . + . . . #
+# . . . . + . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . + . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . + + . . + #
+# . . . . . . . . #
+# . . . . . . . . #
+# + . . . + . . . #
+# . . . . + . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . + . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . + + . . + #
+# . . . . . . . . #
+# . . . . . . . . #
+# + . . . + . . . #
+# . . . . + . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . + . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . + + . . + #
+# . . . . . . . . #
+# . . . . . . . . #
+# + . . . + . . . #
+# . . . . + . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . + . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . + + . . + #
+# . . . . . . . . #
+# . . . . . . . . #
+# + . . . + . . . #
+# . . . . + . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . + . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . + + . . + #
+# . . . . . . . . #
+# . . . . . . . . #
+# + . . . + . . . #
+# . . . . + . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . + . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . + + . . + #
+# . . . . . . . . #
+# . . . . . . . . #
+# + . . . + . . . #
+# . . . . + . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . + . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . + + . . + #
+# . . . . . . . . #
+# . . . . . . . . #
+# + . . . + . . . #
+# . . . . + . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . + . . . #
+# # # # # # # # # #
+rf
+# # # # # # # # # #
+# . . . + + . . + #
+# . . . . . . . . #
+# . . . . . . . . #
+# + . . . + . . . #
+# . . . . + . . . #
+# . . . . . . . . #
+# . . . . . . . . #
+# . . . . + . . . #
+# # # # # # # # # #
+# End time: 15:40:56 on Jan 16,2023, Elapsed time: 2:20:34
+# Errors: 9, Warnings: 1
