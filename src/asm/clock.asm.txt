@@ -1,0 +1,872 @@
+.data
+6
+0
+1
+0x100
+0x140
+0x200
+1 ;; lijevi broj
+1 ;; desni broj
+
+.text
+
+/*
+	Registri
+	R0 - tmp registar
+	R1 - player_1
+	R2 - player_2
+	R3 - color
+	R4 - p_object_and_ball
+	R5 - p_frame_sync
+	R6 - p_pb_dec
+	R7 - p_rgb_matrix
+*/
+
+/*
+---*
+---*
+---*
+---*
+---*
+---*
+---*
+---*
+1 ima samo lijevu gore i lijevu dole
+
+****
+---*
+---*
+****
+*---
+*---
+*---
+****
+2 ima gore,dole,centralnu,lijevu dole,desnu gore
+
+****
+---*
+---*
+****
+---*
+---*
+---*
+****
+3 ima gore,dole,centralnu, desnu gore,desnu dole
+
+
+*--*
+*--*
+*--*
+****
+---*
+---*
+---*
+---*
+
+4 ima centralnu, gore lijevo,gore desno,dole desno
+
+
+****
+*---
+*---
+****
+---*
+---*
+****
+
+5 ima gore,dole,centralnu, lijevu gore,desnu dole
+
+****
+*---
+*---
+****
+*--*
+*--*
+****
+
+6 ima gore,dole,centralnu,lijevu gore,lijevu dole,desnu dole
+
+****
+---*
+---*
+****
+---*
+---*
+---*
+
+7 ima gore,centralnu, desnu gore i dole
+
+8 pali sve
+
+****
+*--*
+*--*
+****
+---*
+---*
+---*
+****
+
+9 ima gore,dole,centralnu,desnu gore i dole,lijevu gore
+
+
+
+gore - 9,8.7,6,5,3,2  (4,1)
+dole - 9,8,6,5,3,2    (7,4,1)
+centralnu - 9,8,7,6,5,4,3,2 (1)
+desnu gore - 9,8,7,4,3,2,1 (6,5)
+desnu dole - 9,8,7,6,5,4,3,1 (2)
+lijevu gore - 4,5,6,8,9   (7,3,2,1)
+lijevu dole - 6,2,8	(9,7,5,4,3,1)
+
+*/
+
+
+default_settings:
+	sub    R0,R0,R0
+	inc    R0,R0
+	inc    R0,R0
+	inc    R0,R0
+	ld     R7,R0 		           ;; R7 = *p_rgb_matrix
+	inc    R0,R0
+	ld     R5,R0 		           ;; R5 = *p_frame_sync
+	inc    R0,R0
+	ld     R6,R0 		           ;; R6 = 0x200 = y pozicija pomjeranja levog (1 igraca) (0x201 ke y pozicija pomjeranja 2 (desnog) igraca)
+	inc    R3,R3 		           ;; Boja = RED
+
+frame_sync_rising_edge:
+frame_sync_wait_0:
+	ld     R0,R5
+	jmpnz  frame_sync_wait_0
+frame_sync_wait_1:
+	ld      R0,R5
+	jmpz    frame_sync_wait_1
+
+
+
+
+count_frames_begin:
+	sub    R0,R0,R0
+	inc    R0,R0
+	ld     R1,R0 		            ;; R1 <- frame_cnt
+	inc    R0,R0 		            ;;
+	ld     R2,R0 		            ;; R2 <- frames_per_heartbeat
+	dec    R0,R0
+	inc    R1,R1 		            ;; frame_cnt++
+	sub    R2,R2,R1 	            ;; frame_cnt == frames_per_heartbeat
+	jmpz   count_frames_heartbeat
+	st     R1,R0 		            ;; R1 -> frame_cnt
+	jmp    check_top_line_1
+
+
+count_frames_heartbeat:
+	sub    R1,R1,R1
+	st     R1,R0
+cout_frames_end:
+
+
+check_top_line_1:
+    sub     R0,R0,R0		    ;; R0 = 0
+    ld      R1,R0
+    ld      R2,R1		    ;; R2 = 1
+    inc     R0,R0 
+    sub     R1,R2,R0
+    jmpz    check_left_top_line_1
+    shl     R0,R0
+    shl     R0,R0                   ;; R0 = 4
+    sub     R1,R2,R0
+    jmpz    check_left_top_line_1
+
+top_line_1:
+    sub     R0,R0,R0                ;;
+    st      R0,R1                   ;; cuvam vrijedost 0 u registru R1
+    add     R0,R0,R7                ;; dodajem poziciju (0,0) na  RGB_Matrix
+    st      R3,R0                   ;; palim lampicu na poziciji (0,0)
+    ld      R0,R1                   ;; uzimam 0 iz R1 registra
+    inc     R0,R0                   ;; 0->1
+    st      R0,R1                   ;; R1 = 1
+    add     R0,R0,R7                ;; dodajem poziciju (1,0) na RGB_Matrix
+    st      R3,R0                   ;; palim lampicu na pozicij (1,0)
+    ld      R0,R1                   ;; uzimam 1 iz R1 registra
+    inc     R0,R0                   ;; 1->2
+    st      R0,R1                   ;; R1 = 2
+    add     R0,R0,R7                ;; dodajem poziciju (2,0) na RGB_Matrix
+    st      R3,R0                   ;; palim lampicu na pozicij (2,0)
+    ld      R0,R1                   ;; uzimam 2 iz R1 registra
+    inc     R0,R0                   ;; 2->3
+    add     R0,R0,R7                ;; dodajem poziicju (3,0) na RGB_Matrix
+    st      R3,R0                   ;; palim lampicu na pozicij (3,0)
+
+
+
+
+;; 4,5,6,8,9 
+check_left_top_line_1: 
+   sub     R0,R0,R0
+   ld      R1,R0 
+   ld      R2,R1
+   inc     R0,R0
+   shl     R0,R0
+   shl     R0,R0                    ;; R0 = 4
+   sub     R1,R2,R0
+   jmpz    left_top_line_1
+   inc     R0,R0
+   sub     R1,R2,R0
+   jmpz    left_top_line_1
+   inc     R0,R0
+   sub     R1,R2,R0
+   jmpz    left_top_line_1
+   inc     R0,R0
+   inc     R0,R0
+   sub     R1,R2,R0
+   jmpz    left_top_line_1
+   inc     R0,R0
+   sub     R1,R2,R0
+   jmpz    left_top_line_1
+   
+   jmp check_left_bottom_line_1
+  
+
+
+
+
+
+left_top_line_1:
+    sub     R0,R0,R0                ;;resetujem registar R0 na nulu
+    st      R0,R1                   ;;cuvam memoriju iz R0 u R1
+    add     R0,R0,R7                ;;dodajem poziciju (0,0) na RGB_Matrix
+    st      R3,R0                   ;;palim lampicu na poziciji (0,0)
+    ld      R0,R1                   ;;uzimam 0 iz registra R1 i prebacujem ga u R0
+    inc     R0,R0                   ;;R0++ -> R0 = 1
+    shl     R0,R0                   ;;iduća tri koraka su zadužena da se prebacimo na y koordinatu tačke
+    shl     R0,R0
+    shl     R0,R0                   ;;trenutno se nalazimo na poziciji (0,1)
+    add     R0,R0,R7                ;;dodajem poziciju (0,1) na RGB_Matrix
+    st      R3,R0                   ;;palim lampicu na poziciji (0,1)
+
+    ;;sablon ponavljamo dok ne upalimo sve lampice do pozicije (0,3)
+
+    ld      R0,R1
+    inc     R0,R0
+    inc     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R0,R7
+    st      R3,R0                   ;;palim lampicu na poziciji (0,2)
+    ld      R0,R1
+    inc     R0,R0
+    inc     R0,R0
+    inc     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R0,R7
+    st      R3,R0                   ;;palim lampicu na poziciji (0,3)
+
+;;6,2,8
+check_left_bottom_line_1:
+    sub     R0,R0,R0
+    ld      R1,R0
+    ld      R2,R1
+    inc     R0,R0 
+    inc     R0,R0
+    sub     R1,R2,R0
+    jmpz    left_bottom_line_1
+    inc     R0,R0
+    shl     R0,R0
+    sub     R1,R2,R0
+    jmpz    left_bottom_line_1
+    inc     R0,R0
+    inc     R0,R0
+    sub     R1,R2,R0
+    jmpz    left_bottom_line_1
+
+    jmp     check_center_line_1
+    
+    
+
+
+
+left_bottom_line_1:
+    sub     R0,R0,R0                ;;resetujem registar R0 na nulu
+    inc     R0,R0                   ;;R0++ -> R0 = 1
+    shl     R0,R0                   ;;R0*2 -> R0 = 2
+    shl     R0,R0                   ;;R0*2 -> R0 = 4
+    st      R0,R1                   ;;cuvam memoriju iz R0 u R1
+    shl     R0,R0                   ;;pomjeram na y kooridnatu
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R0,R7                ;;dodajem poziciju (0,4) na RGB_Matrix
+    st      R3,R0                   ;;palim lampicu na poziciji (0,4)
+    ld      R0,R1                   ;;uzimam 0 iz registra R1 i prebacujem ga u R0
+    inc     R0,R0                   ;;R0++ -> R0 = 5
+    shl     R0,R0                   ;;iduća tri koraka su zadužena da se prebacimo na y koordinatu tačke
+    shl     R0,R0
+    shl     R0,R0                   ;;trenutno se nalazimo na poziciji (0,5)
+    add     R0,R0,R7                ;;dodajem poziciju (0,5) na RGB_Matrix
+    st      R3,R0                   ;;palim lampicu na poziciji (0,5)
+
+    ;;sablon ponavljamo dok ne upalimo sve lampice do pozicije (0,7)
+
+    ld      R0,R1
+    inc     R0,R0
+    inc     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R0,R7
+    st      R3,R0                   ;;palim lampicu na poziciji (0,6)
+    ld      R0,R1
+    inc     R0,R0
+    inc     R0,R0
+    inc     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R0,R7
+    st      R3,R0                   ;;palim lampicu na poziciji (0,7)
+
+
+;;(1)
+check_center_line_1:
+    sub     R0,R0,R0
+    ld      R1,R0  
+    ld      R2,R1
+    inc     R0,R0
+    sub     R1,R2,R0
+    jmpz    check_bottom_line_1
+    jmp     center_line_1
+
+center_line_1:
+    sub     R0,R0,R0
+    sub     R2,R2,R2
+    inc     R0,R0                   ;; R0 = 1
+    inc     R0,R0                   ;; R0 = 2
+    inc     R0,R0                   ;; R0 = 3
+    shl     R0,R0                   ;; postavljamo na y koordinatu
+    shl     R0,R0
+    shl     R0,R0
+    st      R0,R1
+    add     R0,R0,R7                ;; (0,3) + RGB_Matrix
+    st      R3,R0                   ;; palimo lampicu na poziciji (0,3)
+    ld      R0,R1                   ;; (0,3) => R0
+    inc     R2,R2
+    add     R0,R2,R0                ;; R0 = (1,3)
+    add     R0,R0,R7                ;; (1,3) + RGB_Matrix
+    st      R3,R0                   ;; palimo lampicu na poziciji (1,3)
+    ld      R0,R1                   ;; (0,3) => R0
+    inc     R2,R2
+    add     R0,R2,R0                ;; R0 = (2,3)
+    add     R0,R0,R7                ;; (2,3) + RGB_Matrix
+    st      R3,R0                   ;; palimo lampicu na poziciji (2,3)
+    ld      R0,R1                   ;; (0,3) => R0
+    inc     R2,R2
+    add     R0,R2,R0                ;; R0 = (3,3)
+    add     R0,R0,R7                ;; (3,3) + RGB_Matrix
+    st      R3,R0                   ;; palimo lampicu na poziciji (3,3)
+
+
+                                                                                                                                                                                                                                                                                                
+
+;;(7,4,1)
+check_bottom_line_1:
+   sub     R0,R0,R0
+   ld      R1,R0
+   ld      R2,R1
+   inc     R0,R0
+   sub     R1,R2,R0
+   jmpz    check_right_top_line_1
+   inc     R0,R0
+   shl     R0,R0
+   sub     R1,R2,R0
+   jmpz    check_right_top_line_1
+   shl     R0,R0
+   dec     R0,R0
+   jmpz    check_right_top_line_1
+   
+   jmp     bottom_line_1
+
+
+bottom_line_1:
+    sub     R0,R0,R0
+    inc     R0,R0                   ;; R0 = 1
+    shl     R0,R0                   ;; R0 = 2
+    shl     R0,R0                   ;; R0 = 4
+    shl     R0,R0                   ;; R0 = 8
+    dec     R0,R0                   ;; R0 = 7
+    shl     R0,R0                   ;; postavljamo ga na mjesto za y koordinatu
+    shl     R0,R0
+    shl     R0,R0
+    st      R0,R1                   ;; R1 = R0
+    st      R3,R0                   ;; (0,7) upaliti lampicu
+    sub     R2,R2,R2                ;; R2 = 0
+    inc     R2,R2                   ;; R2 = 1
+    ld      R0,R1
+    add     R0,R0,R2                ;; (1,7)
+    add     R0,R0,R7                ;; (1,7) + RGB_Matrix
+    st      R3,R0
+    inc     R2,R2                   ;; R2 = 2
+    ld      R0,R1
+    add     R0,R0,R2                ;; (2,7)
+    add     R0,R0,R7                ;; (2,7)+ RGB_Matrix
+    st      R3,R0                   ;; (2,7) upaliti lampicu
+    inc     R2,R2                   ;; R2 = 3
+    ld      R0,R1                   ;;
+    add     R0,R0,R2                ;; (3,7)
+    add     R0,R0,R7                ;; (3,7) + RGB_Matrix
+    st      R3,R0
+
+
+
+
+;;(6,5)
+check_right_top_line_1:	  
+    sub     R0,R0,R0
+    ld      R1,R0
+    ld      R2,R1
+    inc     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    inc     R0,R0
+    sub     R1,R2,R0
+    jmpz    check_right_bottom_line_1
+    inc     R0,R0
+    sub     R1,R2,R0
+    jmpz    check_right_bottom_line_1
+   
+    jmp     right_top_line_1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
+right_top_line_1:
+    sub     R0,R0,R0
+    inc     R0,R0                   ;; R0 = 1
+    shl     R0,R0                   ;; R0 = 2
+    inc     R0,R0                   ;; R0 = 3
+    st      R0,R1
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    ld      R0,R1
+    inc     R2,R2                   ;; R2 = 1
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    add     R0,R2,R0                ;; y + x koordinata
+    add     R0,R0,R7                ;; y + x + RGB_Matrix
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    inc     R2,R2                   ;; R2 = 2
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    inc     R2,R2
+    inc     R2,R2                   ;; R2 = 3
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+
+;;(2)
+check_right_bottom_line_1:
+    sub    R0,R0,R0
+    ld     R1,R0
+    ld     R2,R1
+    inc    R0,R0
+    shl    R0,R0
+    sub    R1,R2,R0
+    jmpz   check_top_line_2
+
+    jmp    right_bottom_line_1
+
+
+
+right_bottom_line_1:
+    sub     R0,R0,R0
+    inc     R0,R0                   ;; R0 = 1
+    shl     R0,R0                   ;; R0 = 2
+    inc     R0,R0                   ;; R0 = 3
+    st      R0,R1
+    sub     R2,R2,R2
+    inc     R2,R2
+    shl     R2,R2
+    shl     R2,R2                   ;; R2 = 4
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    inc     R2,R2                   ;; R2 = 5
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    inc     R2,R2
+    inc     R2,R2                   ;; R2 = 6
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    dec     R2,R2                   ;; R2 = 7
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+
+
+
+
+check_top_line_2:
+
+
+top_line_2:
+    sub     R0,R0,R0                ;;
+    inc     R0,R0                   ;; R0 = 1
+    shl     R0,R0                   ;; R0 = 2
+    shl     R0,R0                   ;; R0 = 4
+    st      R0,R1                   ;; cuvam vrijedost 4 u registru R1
+    add     R0,R0,R7                ;; dodajem poziciju (4,0) na  RGB_Matrix
+    st      R3,R0                   ;; palim lampicu na poziciji (4,0)
+    ld      R0,R1                   ;; uzimam 4 iz R1 registra
+    inc     R0,R0                   ;; 4->5
+    st      R0,R1                   ;; R1 = 5
+    add     R0,R0,R7                ;; dodajem poziciju (5,0) na RGB_Matrix
+    st      R3,R0                   ;; palim lampicu na pozicij (5,0)
+    ld      R0,R1                   ;; uzimam 5 iz R1 registra
+    inc     R0,R0                   ;; 5->6
+    st      R0,R1                   ;; R1 = 6
+    add     R0,R0,R7                ;; dodajem poziciju (6,0) na RGB_Matrix
+    st      R3,R0                   ;; palim lampicu na pozicij (6,0)
+    ld      R0,R1                   ;; uzimam 6 iz R1 registra
+    inc     R0,R0                   ;; 6->7
+    add     R0,R0,R7                ;; dodajem poziicju (7,0) na RGB_Matrix
+    st      R3,R0                   ;; palim lampicu na pozicij (7,0)
+
+
+
+
+
+left_top_line_2:
+    sub     R0,R0,R0                ;;resetujem registar R0 na nulu
+    sub     R2,R2,R2                ;; R2 = 0
+    inc     R2,R2                   ;; R2 = 1
+    shl     R2,R2                   ;; R2 = 2
+    shl     R2,R2                   ;; R2 = 4
+    st      R0,R1                   ;;cuvam memoriju iz R0 u R1
+    add     R0,R2,R0
+    add     R0,R0,R7                ;;dodajem poziciju (4,0) na RGB_Matrix
+    st      R3,R0                   ;;palim lampicu na poziciji (0,0)
+    ld      R0,R1                   ;;uzimam 0 iz registra R1 i prebacujem ga u R0
+    inc     R0,R0                   ;;R0++ -> R0 = 1
+    shl     R0,R0                   ;;iduća tri koraka su zadužena da se prebacimo na y koordinatu tačke
+    shl     R0,R0
+    shl     R0,R0                   ;;trenutno se nalazimo na poziciji (0,1)
+    add     R0,R2,R0                ;;(4,1)
+    add     R0,R0,R7                ;;dodajem poziciju (4,1) na RGB_Matrix
+    st      R3,R0                   ;;palim lampicu na poziciji (4,1)
+
+    ;;sablon ponavljamo dok ne upalimo sve lampice do pozicije (0,3)
+
+    ld      R0,R1
+    inc     R0,R0
+    inc     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0                   ;;palim lampicu na poziciji (4,2)
+    ld      R0,R1
+    inc     R0,R0
+    inc     R0,R0
+    inc     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0                   ;;palim lampicu na poziciji (4,3)
+
+
+
+
+left_bottom_line_2:
+    sub     R0,R0,R0                ;;resetujem registar R0 na nulu
+    inc     R0,R0                   ;;R0++ -> R0 = 1
+    shl     R0,R0                   ;;R0*2 -> R0 = 2
+    shl     R0,R0                   ;;R0*2 -> R0 = 4
+    st      R0,R1                   ;;cuvam memoriju iz R0 u R1
+    sub     R2,R2,R2                ;; R2 = 0
+    inc     R2,R2
+    shl     R2,R2
+    shl     R2,R2                   ;; R2 = 4
+    shl     R0,R0                   ;;pomjeram na y kooridnatu
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R2,R0
+    add     R0,R0,R7                ;;dodajem poziciju (4,4) na RGB_Matrix
+    st      R3,R0                   ;;palim lampicu na poziciji (4,4)
+    ld      R0,R1                   ;;uzimam 0 iz registra R1 i prebacujem ga u R0
+    inc     R0,R0                   ;;R0++ -> R0 = 5
+    shl     R0,R0                   ;;iduća tri koraka su zadužena da se prebacimo na y koordinatu tačke
+    shl     R0,R0
+    shl     R0,R0                   ;;trenutno se nalazimo na poziciji (0,5)
+    add     R0,R2,R0
+    add     R0,R0,R7                ;;dodajem poziciju (4,5) na RGB_Matrix
+    st      R3,R0                   ;;palim lampicu na poziciji (4,5)
+
+    ;;sablon ponavljamo dok ne upalimo sve lampice do pozicije (4,7)
+
+    ld      R0,R1
+    inc     R0,R0
+    inc     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0                   ;;palim lampicu na poziciji (4,6)
+    ld      R0,R1
+    inc     R0,R0
+    inc     R0,R0
+    inc     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    shl     R0,R0
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0                   ;;palim lampicu na poziciji (4,7)
+
+
+
+
+
+center_line_2:
+    sub     R0,R0,R0
+    sub     R2,R2,R2
+    inc     R2,R2                   ;; R2 = 1
+    inc     R2,R2                   ;; R2 = 2
+    shl     R2,R2                   ;; R2 = 4
+    inc     R0,R0                   ;; R0 = 1
+    inc     R0,R0                   ;; R0 = 2
+    inc     R0,R0                   ;; R0 = 3
+    shl     R0,R0                   ;; postavljamo na y koordinatu
+    shl     R0,R0
+    shl     R0,R0
+    st      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7                ;; (4,3) + RGB_Matrix
+    st      R3,R0                   ;; palimo lampicu na poziciji (0,3)
+    ld      R0,R1                   ;; 3 => R0
+    inc     R2,R2
+    add     R0,R2,R0                ;; R0 = (5,3)
+    add     R0,R0,R7                ;; (5,3) + RGB_Matrix
+    st      R3,R0                   ;; palimo lampicu na poziciji (5,3)
+    ld      R0,R1                   ;; (0,3) => R0
+    inc     R2,R2
+    add     R0,R2,R0                ;; R0 = (6,3)
+    add     R0,R0,R7                ;; (6,3) + RGB_Matrix
+    st      R3,R0                   ;; palimo lampicu na poziciji (6,3)
+    ld      R0,R1                   ;; (0,3) => R0
+    inc     R2,R2
+    add     R0,R2,R0                ;; R0 = (7,3)
+    add     R0,R0,R7                ;; (7,3) + RGB_Matrix
+    st      R3,R0                   ;; palimo lampicu na poziciji (7,3)
+
+
+
+
+
+
+
+bottom_line_2:
+    sub     R0,R0,R0
+    sub     R2,R2,R2                ;; R2 = 0
+    inc     R2,R2                   ;; R2 = 1
+    shl     R2,R2                   ;; R2 = 2
+    shl     R2,R2                   ;; R2 = 4
+    inc     R0,R0                   ;; R0 = 1
+    shl     R0,R0                   ;; R0 = 2
+    shl     R0,R0                   ;; R0 = 4
+    shl     R0,R0                   ;; R0 = 8
+    dec     R0,R0                   ;; R0 = 7
+    shl     R0,R0                   ;; postavljamo ga na mjesto za y koordinatu
+    shl     R0,R0
+    shl     R0,R0
+    st      R0,R1                   ;; R1 = R0
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0                   ;; (4,7) upaliti lampicu
+
+    inc     R2,R2                   ;; R2 = 5
+    ld      R0,R1
+    add     R0,R0,R2                ;; (5,7)
+    add     R0,R0,R7                ;; (5,7) + RGB_Matrix
+    st      R3,R0
+    inc     R2,R2                   ;; R2 = 6
+    ld      R0,R1
+    add     R0,R0,R2                ;; (6,7)
+    add     R0,R0,R7                ;; (6,7)+ RGB_Matrix
+    st      R3,R0                   ;; (6,7) upaliti lampicu
+    inc     R2,R2                   ;; R2 = 7
+    ld      R0,R1                   ;;
+    add     R0,R0,R2                ;; (7,7)
+    add     R0,R0,R7                ;; (7,7) + RGB_Matrix
+    st      R3,R0
+
+
+
+
+
+
+
+right_top_line_1:
+    sub     R0,R0,R0
+    inc     R0,R0                   ;; R0 = 1
+    shl     R0,R0                   ;; R0 = 2
+    shl     R0,R0                   ;; R0 = 4
+    shl     R0,R0                   ;; R0 = 8
+    dec     R0,R0                   ;; R0 = 7
+    st      R0,R1
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    ld      R0,R1
+    inc     R2,R2                   ;; R2 = 1
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    add     R0,R2,R0                ;; y + x koordinata
+    add     R0,R0,R7                ;; y + x + RGB_Matrix
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    inc     R2,R2                   ;; R2 = 2
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    inc     R2,R2
+    inc     R2,R2                   ;; R2 = 3
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+
+
+
+
+
+right_bottom_line_1:
+    sub     R0,R0,R0
+    inc     R0,R0                   ;; R0 = 1
+    shl     R0,R0                   ;; R0 = 2
+    inc     R0,R0                   ;; R0 = 3
+    shl     R0,R0                   ;; R0 = 6
+    inc     R0,R0                   ;; R0 = 7
+    st      R0,R1
+    sub     R2,R2,R2
+    inc     R2,R2
+    shl     R2,R2
+    shl     R2,R2                   ;; R2 = 4
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    inc     R2,R2                   ;; R2 = 5
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    inc     R2,R2
+    inc     R2,R2                   ;; R2 = 6
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+    sub     R2,R2,R2
+    inc     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    dec     R2,R2                   ;; R2 = 7
+    shl     R2,R2
+    shl     R2,R2
+    shl     R2,R2
+    ld      R0,R1
+    add     R0,R2,R0
+    add     R0,R0,R7
+    st      R3,R0
+
+
+end:
+    jmp     frame_sync_rising_edge
+
+
+
+
+
+
+
+
+
+

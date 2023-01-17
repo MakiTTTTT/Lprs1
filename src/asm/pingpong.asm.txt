@@ -1,0 +1,480 @@
+
+.data
+8			
+0			
+75
+0x100
+0x140
+0x200	
+
+
+1			
+0					
+3			
+3 
+0			
+3 
+0
+4
+0
+5
+7
+3 			
+7
+4
+7
+5
+-1			
+-1
+
+.text
+
+/* 
+	Registri
+	R0 - tmp registar
+	R1 - player_1
+	R2 - player_2
+	R3 - color
+	R4 - p_object_and_ball
+	R5 - p_frame_sync
+	R6 - p_pb_dec
+	R7 - p_rgb_matrix
+*/
+
+
+
+default_settings:
+	sub R0,R0,R0
+	inc R0,R0 
+	inc R0,R0
+	inc R0,R0
+	ld R7, R0 		;; R7 = *p_rgb_matrix
+	inc R0,R0
+	ld R5, R0 		;; R5 = *p_frame_sync
+	inc R0, R0
+	ld R6,R0 		;; R6 = 0x200 = y pozicija pomjeranja levog (1 igraca) (0x201 ke y pozicija pomjeranja 2 (desnog) igraca)
+	inc R3,R3 		;; Boja = RED
+
+frame_sync_rising_edge:
+frame_sync_wait_0:
+	ld R0,R6
+	jmpnz frame_sync_wait_0 
+frame_sync_wait_1:
+	ld R0,R6
+	jmpz frame_sync_wait_1
+
+draw_object_begin:
+	shl R3,R3		;; R3 = BLUE
+	sub R0,R0,R0
+	ld R4,R0		;; R4 = &(ball.x)
+draw_object_loop:
+	ld R1, R4 		;; R1 = *(ball.x)
+	jmps draw_object_end
+	inc R4,R4 		;; pomjeri na y
+	ld R2, R4		;; R2 = *(ball.y)
+	inc R4,R4		;; R4 = &(left_player.x)
+	shl R2,R2
+	shl R2,R2
+	shl R2,R2		
+	add R2,R2,R1	;; R2 = R2*8 + R1 = ball.y*8 + ball.x ;
+	add R2,R2,R7	;; R2 = &(lampice) //R7 = &(RGB_Matrix)
+	st R3,R2		;; upisi u matricu 
+	;;shl R3,R3		;; Promjena boje
+	jmpnz draw_object_loop
+	;;inc R3,R3
+	jmp draw_object_loop
+draw_object_end:
+
+count_frames_begin:
+	sub R0,R0,R0
+	inc R0,R0
+	ld R1, R0 		;; R1 <- frame_cnt
+	inc R0,R0 		;;
+	ld R2, R0 		;; R2 <- frames_per_heartbeat
+	dec R0,R0
+	inc R1,R1 		;; frame_cnt++
+	sub R2,R2,R1 	;; frame_cnt == frames_per_heartbeat
+	jmpz count_frames_heartbeat
+	st R1, R0 		;; R1 -> frame_cnt
+	jmp frame_sync_rising_edge
+
+count_frames_heartbeat:
+	sub R1,R1,R1
+	st R1,R0
+cout_frames_end:
+
+
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			collision_detection:
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; Load R1 and R2 and set them as the position of the ball in the next frames
+	;; throught this entire function we'll be addressing ball.x as the new ball position
+	sub R0,R0,R0	;;R0 = 0 = &(ball.x)
+	ld R3,R0
+	mov R4,R3
+	inc R4,R4
+	ld R3,R3
+	ld R4,R4		;;R3= *(ball_movement_vector.x),R4= *(ball_movement_vector.y)
+	
+	ld R1,R0		
+	dec R1,R1
+	dec R1,R1		;;R1 = &(ball_movement_vector.x)
+	mov R2,R1
+	inc R2,R2
+	ld R1,R1		
+	ld R2,R2		;;R1= *(ball_movement_vector.x),R2= *(ball_movement_vector.y)
+			
+	add R1,R1,R3
+	add R2,R2,R4
+	;;R1 <- nova x pozcija lopte (pozicija lopte sledeceg frame-a), R2 <- za y poziciju
+	;;R0 = 0
+	
+	check_left_player_collision:
+	;;sub R0,R0,R0		;;R0 = 0 already
+	
+	ld R0,R0			;;R0 = &(ball.x)
+	inc R0,R0			
+	inc R0,R0			;;R0 = &(left_player.x)
+	ld R3,R0			;;R3 = *(left_player.x)
+	inc R0,R0
+	ld R4,R0			;;R4 = *(left_player.y)
+	;; R3 <- x pozicja lijevog igraca, R4 <- y pozicja lijevog igraca
+	
+	;; check the x axis
+	sub R3,R3,R1
+	jmpnz check_left_player_collision_end  		;; x pozicija lopte je veca od x pozicije lijevog igraca 
+	
+	;; R3 ce od sada biti iskoristen kao registar opste namjene
+	sub R3,R2,R4		;;ball.y - left_player.y < 0 then exit
+	jmps LEFT_PLAYER_LOST
+	
+	inc R4,R4
+	inc R4,R4
+	inc R4,R4			;; R4 += 3;
+	sub R3,R4,R2		;;ball.y - left_player.y+3 > 0 then exit
+	jmpns LEFT_PLAYER_LOST
+	;; R0 = 11 = &(left_player.y)
+	
+	;;SINCE THE BALL HASN'T hit the wall we must change the ball movement vector
+	;;the code below sets the ball movement vector to the required value and the jumps will have a long name to avoid collisions
+	
+	;;Since
+	;; R3 = R4-R2 = left_player.y+3 - ball.y
+	mov R3,R3			;;set the ALU flags again
+	
+	;;If (3rd tile was hit) then ball_movement_vector = (1,1)
+	jmpnz check_left_player_collision_BallMoveVector_down_right_jump
+		sub R0,R0,R0
+		ld R0,R0
+		dec R0,R0		;; R0 = &(ball_movement_vector.y) = 7
+		sub R3,R3,R3
+		inc R3,R3		;; R3 = 1
+		st R0,R3		;; ball_movement_vector.y = 1
+		dec R0,R0		;; R0 = &(ball_movement_vector.x) = 6
+		st R0,R3		;; ball_movement_vector.x = 1
+		jmp check_left_player_collision_end			;;jump to the end of the section
+	check_left_player_collision_BallMoveVector_down_right_jump:
+	
+	;;NOTE: Register status:
+	;;R0 = 11, R4 = left_player.y+3, R2 = ball.y
+	
+	dec R3,R3			;; R3 = R4-R2 = left_player.y+3 - ball.y -1 => if (2nd tile was hit) then ball_movement_vector = (1,0)
+	jmpnz check_left_player_collision_BallMoveVector_right_jump
+		sub R0,R0,R0
+		ld R0,R0
+		dec R0,R0		;; R0 = &(ball_movement_vector.y) = 7
+		sub R3,R3,R3
+		st R0,R3		;; ball_movement_vector.y = 0	
+		dec R0,R0		;; R0 = &(ball_movement_vector.x) = 6
+		inc R3,R3		;; R3 = 1
+		st R0,R3		;; ball_movement_vector.x = 1
+		jmp check_left_player_collision_end
+	check_left_player_collision_BallMoveVector_right_jump:
+	
+	;; Else, we hit the first tile. Then the ball_movement_vector = (1,-1)
+		sub R0,R0,R0
+		ld R0,R0
+		dec R0,R0		;; R0 = &(ball_movement_vector.y) = 7
+		sub R3,R3,R3
+		dec R3,R3
+		st R0,R3		;; ball_movement_vector.y = -1
+		dec R0,R0		;; R0 = &(ball_movement_vector.x) = 6
+		inc R3,R3
+		inc R3,R3		;; R3 = 1
+		st R0,R3		;; ball_movement_vector.x = 1
+	
+	
+	;;The ball movement vector is now set accordingly
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		check_left_player_collision_end:
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	
+	
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		check_right_player_collision:
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	sub R0,R0,R0
+	inc R0,R0
+	shl R0,R0
+	shl R0,R0
+	shl R0,R0
+	shl R0,R0		;; R0 = 16 = &(right_player_pos.x)
+	ld R3,R0
+	inc R0,R0
+	ld R4,R0		
+	;; R3 <- x pos of the right player, R4 <- y pos of the right player
+	;;NOTE: R1 = new ball.x and R2 = new ball.y position
+	
+	;; check the x axis
+	sub R3,R3,R1
+	jmpnz check_right_player_collision_end  		;; if (ball.x != right_player.x) then skip collision check
+	
+	;; R3 will be used as a temp register
+	sub R3,R4,R2		;; if (right_player.y - ball.y > 0) then right_player lost
+	jmpns RIGHT_PLAYER_LOST
+	
+	inc R4,R4
+	inc R4,R4
+	inc R4,R4			;; R4 += 3
+	sub R3,R4,R2		;; if (right_player+3 - ball.y < 0) then right_player lost
+	jmps RIGHT_PLAYER_LOST
+	
+	
+	;;SINCE THE BALL HASN'T hit the wall we must change the ball movement vector
+	;;the code below sets the ball movement vector to the required value and the jumps will have a long name to avoid collisions
+	;; R3 = R4-R2 = right_player.y+3 - ball.y
+	
+	mov R3,R3
+	;;If (3rd tile was hit) then ball_movement_vector = (-1,1)
+	jmpnz check_right_player_collision_BallMoveVector_down_right_jump
+		sub R0,R0,R0
+		ld R0,R0
+		dec R0,R0		;; R0 = &(ball_movement_vector.y) = 7
+		sub R3,R3,R3
+		inc R3,R3		
+		st R0,R3		;; ball_movement_vector.y = 1
+		dec R0,R0		;; R0 = &(ball_movement_vector.x) = 6
+		dec R3,R3
+		dec R3,R3
+		st R0,R3		;; ball_movement_vector.x = -1
+		jmp check_right_player_collision_end
+	check_right_player_collision_BallMoveVector_down_right_jump:
+	
+	
+	;;NOTE: R4 = left_player.y+3
+	dec R3,R3			;; R3 = R4-R2 = left_player.y+3 - ball.y -1
+	;;If (2nd tile was hit) then ball_movement_vector = (-1,0)
+	jmpnz check_right_player_collision_BallMoveVector_right_jump
+		sub R0,R0,R0
+		ld R0,R0
+		dec R0,R0		;; R0 = &(ball_movement_vector.y) = 7
+		sub R3,R3,R3
+		st R0,R3		;; ball_movement_vector.y = 0
+		dec R0,R0		;; R0 = &(ball_movement_vector.x) = 6
+		dec R3,R3
+		st R0,R3		;; ball_movement_vector.x = -1
+		jmp check_right_player_collision_end
+	check_right_player_collision_BallMoveVector_right_jump:
+	
+	
+	;; Else we shoot it up left (-1,-1)
+		sub R0,R0,R0
+		ld R0,R0
+		dec R0,R0		;; R0 = &(ball_movement_vector.y) = 7
+		sub R3,R3,R3
+		dec R3,R3
+		st R0,R3		;; ball_movement_vector.y = -1
+		dec R0,R0		;; R0 = &(ball_movement_vector.x) = 6
+		st R0,R3		;; ball_movement_vector.x = -1
+	
+	;;The ball movement vector is now set accordingly
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		check_right_player_collision_end:
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	
+	
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		check_wall_collision:
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		
+	;; NOTE: R1 = ball.x and R2 = ball.y
+	
+	mov R2,R2				;; if (ball.y < 0) then ball_movement_vector = 1;
+	jmpns check_lower_wall_bounds
+		sub R0,R0,R0
+		ld R0,R0			
+		dec R0,R0			;;R0 = &(ball_movement_vector.y)
+		sub R3,R3,R3
+		inc R3,R3
+		st R3,R0			;;ball_movement_vector.y = 1
+		jmp check_wall_collision_end
+	check_lower_wall_bounds:
+	
+	sub R0,R0,R0
+	inc R0,R0
+	shl R0,R0
+	shl R0,R0
+	shl R0,R0				;; R0 = 8
+	sub R0,R0,R2			;;if (8-ball.y = 0) then ball_movement_vector.y = -1
+	jmpnz check_wall_collision_end
+		dec R0,R0			;; R0 = 7 = &(ball_movement_vector.y)
+		sub R3,R3,R3
+		dec R3,R3
+		st R3,R0			;; ball_movement_vector = -1
+		
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		check_wall_collision_end:
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+	
+
+
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			update_ball_position:
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;NOTE: new ball.x = R1 and new ball.y = R2
+	
+	;; Setup
+	sub R0,R0,R0
+	ld R0,R0			
+	dec R0,R0
+	ld R1,R0
+	inc R0,R0
+	ld R2,R0
+	inc R0,R0
+	ld R3,R0
+	inc R0,R0		;;R0 = &(ball.y)
+	ld R4,R0
+	;; R1 = ball_movement_vector.x and R2 = ball_movement_vector.y
+	;; R3 = ball.x and R4 = ball.y
+
+	add R3,R3,R1
+	add R4,R4,R2
+	;;NOTE: R0 = &(ball.y)
+	st R4,R0
+	dec R0,R0
+	st R3,R0
+	
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;		ball position has been updated accordingly		;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;	TODO : HANDLE USER INPUT!!!!
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+	;; 	R0 = tmp register
+	;;	R1 = left_player.y
+	;;	R2 = right_player.y
+	;;	R5 = pb_dec
+	;;	R3 = left_player_y_change
+	;;	R4 = right_player_y_change
+
+	;;Load in the values
+	sub R0,R0,R0
+	inc R0,R0
+	shl R0,R0		
+	shl R0,R0
+	inc R0,R0		;;R0 = 5
+	ld R5,R0		;;R5 = &pb_dec = 0x200 = &left_player.y change
+	;;NOTE: The value of R5 was already saved inside the register at the start of the programm
+	dec R0,R0		
+	shl R0,R0		
+	shl R0,R0		
+	inc R0,R0		;;R0 = 17 = &right_player.y
+	ld R2,R0		;;R2 = right_player.y
+	shr R0,R0		;;R0 = 8	
+	inc R0,R0		
+	inc R0,R0
+	inc R0,R0		;;R0 = 11 = &left_player.y
+	ld R1,R0		;;R1 = left_player.y
+
+	shr R0,R0		;;R0 = 5
+	
+	;;NOTE: R1 = left_player.y  R2 = right_player.y    R0 = 5    R5 = 0x200 = &left_player.y change
+	ld R3,R5
+	inc R5,R5
+	ld R4,R5
+	dec R5,R5
+	;;R3 = left_player.y change   R4 = right_player.y change
+	
+	add R1,R1,R3
+	sub R0,R1,R0
+	jmps skip_return_left_player_to_upper_bounds
+		dec R1,R1	;;R1 is now <= 4
+	skip_return_left_player_to_upper_bounds:
+	
+	mov R1,R1
+	jmpns skip_return_left_player_to_lower_bounds
+		sub R1,R1,R1
+	skip_return_left_player_to_lower_bounds:
+	
+	
+	
+	sub R0,R0,R0
+	inc R0,R0
+	shl R0,R0
+	shl R0,R0
+	inc R0,R0		;; R0 = 5
+	
+	add R2,R2,R4
+	sub R0,R2,R0	
+	jmps skip_return_right_player_to_upper_bounds
+		dec R2,R2	;;R2 is now <= 4
+	skip_return_right_player_to_upper_bounds:
+	
+	mov R2,R2
+	jmpns skip_return_right_player_to_lower_bounds
+		sub R2,R2,R2
+	skip_return_right_player_to_lower_bounds:
+	
+	
+	;;Now we have to write in the new positions of the players
+	;;	R1 = new left_player.y		R2 = new right_player.y
+	sub R0,R0,R0
+	ld R0,R0
+	inc R0,R0
+	inc R0,R0		;;R0 = 10 = &left_player.x
+	inc R0,R0		;;R0 = 11 = &left_player.y
+	st R1,R0		
+	;;Repeat this 2 more times since the length of the players is 3
+	inc R0,R0
+	inc R0,R0
+	inc R1,R1
+	st R1,R0
+	inc R0,R0
+	inc R0,R0
+	inc R1,R1
+	st R1,R0
+	;; The position of the left player is now stored
+	
+	;;Now do the same for the right player
+	inc R0,R0
+	inc R0,R0		;;R0 = 17 = &right_player.y
+	st R2,R0
+	;;repeat 2 times
+	inc R0,R0
+	inc R0,R0
+	inc R2,R2
+	st R2,R0
+	inc R0,R0
+	inc R0,R0
+	inc R2,R2
+	st R2,R0
+	;; The position of the right player is now stored
+	
+
+
+
+LEFT_PLAYER_LOST:
+RIGHT_PLAYER_LOST:
+	;; EXIT THE GAME SINCE THE PLAYER LOST
+	;; End the game
+	sub R0,R0,R0
+	
+	
+;; loop indefinetely	
+jmp frame_sync_rising_edge		

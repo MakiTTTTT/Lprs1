@@ -1,0 +1,816 @@
+.data
+6
+0 ;;krece brojanje od 0
+75
+0x100 ;;pozicija na plocici
+0x140 
+0x200
+9,7
+18 ;; pokazivac na 0 u memoriji   
+39 ;; pokazivac na 1 u memoriji
+48 ;; pokazivac na 2 u memoriji
+66;; pokazivac na 3 u memoriji
+84;; pokazivac na 4 u memoriji
+99;; pokazivac na 5 u memoriji
+117;; pokazivac na 6 u memoriji
+138;; pokazivac na 7 u memoriji
+150;; pokazivac na 8 u memoriji
+173     ;; mjesto u memoriji 17 
+
+;; pokazivac na 0
+0 
+1
+2
+3  
+8
+11
+16
+19
+24
+27
+32
+35
+40
+43
+48
+51
+56
+57
+58
+59
+-1 
+;; pokazivac na 1
+3        
+11
+19
+27
+35
+43
+51
+59
+-1
+;; pokazivac na 2
+0 
+1
+2
+3 
+11
+19
+24
+25
+26
+27
+32
+40
+48
+56
+57
+58
+59
+-1
+;; pokazivac na 3
+0  
+1
+2
+3
+11
+19
+24
+25
+26
+27
+35
+43
+51
+56
+57
+58
+59
+-1
+;; pokazivac na 4
+0 
+3
+8
+11
+16
+19
+24
+25
+26
+27
+35
+43
+51
+59
+-1
+;; pokazivac na 5
+0 
+1
+2
+3
+8
+16
+24
+25
+26
+27
+35
+43
+51
+56
+57
+58
+59
+-1
+;; pokazivac na 6
+0 
+1
+2
+3
+8
+16
+24
+25
+26
+27
+32
+35
+40
+43
+48
+51
+56
+57
+58
+59
+-1
+;; pokazivac na 7
+0 
+1
+2
+3
+11
+19
+27
+35
+43
+51
+59
+-1
+;; pokazivac na 8
+0 
+1
+2
+3
+8
+11
+16
+19
+24
+25
+26
+27
+32
+35
+40
+43
+48
+51
+56
+57
+58
+59
+-1
+;; pokazivac na 9
+0 
+1
+2
+3
+8
+11
+16
+19
+24
+25
+26
+27
+35
+43
+51
+56
+57
+58
+59
+-1
+
+.text
+
+begin:
+	;; Setup pointers and color.
+	inc R0, R0                  ;; addr = 1
+	inc R0, R0                  ;; addr = 2
+	inc R0, R0                  ;; addr = 3
+	ld R7, R0                   ;; R7 <- p_rgb_matrix
+	inc R0, R0                  ;; addr = 4
+	ld R6, R0                   ;; R6 <- p_frame_sync
+	inc R0, R0                  ;; addr = 5
+	ld R5, R0                   ;; R5 <- p_pb_dec
+	inc R3, R3                  ;; color = RED
+
+frame_sync_rising_edge:
+frame_sync_wait_0:
+	ld R0, R6                   ;; R0 <- p_frame_sync
+	jmpnz frame_sync_wait_0
+frame_sync_wait_1:
+	ld R0, R6                   ;; R0 <- p_frame_sync
+	jmpz frame_sync_wait_1
+
+
+start_1:         ;;cita prvi broj i skace na mem lokaciju broja i onda skace na ostale fje
+    sub R0,R0,R0
+    ld  R1,R0
+    ld  R2,R1
+    sub R1,R2,R0
+    jmpz skoci_1_na_0
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_1_na_1
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_1_na_2
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_1_na_3
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_1_na_4
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_1_na_5
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_1_na_6
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_1_na_7
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_1_na_8
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_1_na_9
+   
+
+skoci_1_na_0:   ;;kaze da se nalazi taj broj na toj lokaciji i posle skace na ispis - hvata lokaciju uzima prvu cifru u memoriji
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 0
+    jmp draw_first_number_start
+
+skoci_1_na_1:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 1
+    jmp draw_first_number_start
+
+skoci_1_na_2:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 2
+    jmp draw_first_number_start
+skoci_1_na_3:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 3
+    jmp draw_first_number_start
+
+skoci_1_na_4:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 4
+    jmp draw_first_number_start
+
+skoci_1_na_5:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 5
+    jmp draw_first_number_start
+
+skoci_1_na_6:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 6
+    jmp draw_first_number_start
+
+skoci_1_na_7:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 7
+    jmp draw_first_number_start
+
+skoci_1_na_8:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 8
+    jmp draw_first_number_start
+
+skoci_1_na_9:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 9
+    jmp draw_first_number_start
+
+
+draw_first_number_start: ;;izima prvi br kod pokazivaca gore
+    ld  R1,R1
+
+draw_first_number: ;;boji po brojevima gore kod pokazivaca
+    ld  R0, R1
+    jmps draw_first_number_end
+    add R2,R0,R7
+    st  R3,R2
+    inc R1,R1
+    jmp draw_first_number
+
+
+    
+
+
+
+draw_first_number_end: ;;menja boju u zelenu za sledeci
+    shl  R3,R3
+
+
+start_2:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    ld  R2,R1
+    sub R1,R2,R0
+    jmpz skoci_2_na_0
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_2_na_1
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_2_na_2
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_2_na_3
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_2_na_4
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_2_na_5
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_2_na_6
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_2_na_7
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_2_na_8
+    inc R0,R0
+    sub R1,R2,R0
+    jmpz skoci_2_na_9
+   
+
+skoci_2_na_0:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 0
+    jmp draw_second_number_start
+
+skoci_2_na_1:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 1
+    jmp draw_second_number_start
+
+skoci_2_na_2:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 2
+    jmp draw_second_number_start
+skoci_2_na_3:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 3
+    jmp draw_second_number_start
+
+skoci_2_na_4:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 4
+    jmp draw_second_number_start
+
+skoci_2_na_5:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 5
+    jmp draw_second_number_start
+
+skoci_2_na_6:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 6
+    jmp draw_second_number_start
+
+skoci_2_na_7:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 7
+    jmp draw_second_number_start
+
+skoci_2_na_8:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 8
+    jmp draw_second_number_start
+
+skoci_2_na_9:
+    sub R0,R0,R0
+    ld  R1,R0
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1	
+    inc R1,R1	
+    inc R1,R1
+    inc R1,R1
+    inc R1,R1;; memorijska lokacija 9
+    jmp draw_second_number_start
+
+
+draw_second_number_start:
+    ld  R1,R1
+
+draw_second_number:
+    ld  R0, R1
+    jmps draw_second_number_end
+    add R2,R0,R7
+    inc R2,R2
+    inc R2,R2
+    inc R2,R2
+    inc R2,R2
+    st  R3,R2
+    inc R1,R1
+    jmp draw_second_number
+
+
+    
+
+
+
+draw_second_number_end:
+    shr  R3,R3
+
+
+
+
+pressed_start: ;; proverava da li je centralno dugme pritisnuto
+	inc R5,R5
+	inc R5,R5
+	ld  R1,R5
+	dec R5,R5
+	dec R5,R5
+	mov R1,R1
+	jmps started
+	jmp move_time
+
+started: ;; startuje tajmer
+	jmp algorithm
+
+;; mora imati slučajeve kad je drugi broj 9 i kad je drugi broj 0
+;;i kada je 00 da ne moze da se smanji
+move_time:
+	sub R0,R0,R0     ;; reset R0
+	ld  R2,R0	 ;; R2 = 6	
+	inc R2,R2	 ;; R2 = 7
+	ld  R2,R2	 ;; R2 uzima vrijednost 2 broja
+	sub R0,R2,R0	 ;; oduzimamo R2 od 0
+	jmpz slucaj_drugi_je_nula	;; ako je rezultat 0 drugi broj je 0
+	sub R0,R0,R0	 ;; R0 = 0 
+	inc R0,R0	 ;; R0 = 1
+	shl R0,R0        ;; 2
+	shl R0,R0	 ;; 4
+	shl R0,R0	 ;; 8
+	inc R0,R0	 ;; 9
+	sub R0,R2,R0	 ;; R2 - 9 	
+	jmpz slucaj_drugi_je_devet ;; ako je rezultat
+	sub R0,R0,R0	;; resetovan R0
+	inc R5,R5	;; ucitaj y vrijednost
+	ld  R1,R5	;; sacuvaj to u R1
+	dec R5,R5
+	mov R1,R1
+	jmps decrease
+	sub R0,R0,R0
+	inc R0,R0
+	sub R0,R1,R0
+	jmpz increase
+	jmp frame_sync_rising_edge
+
+
+increase:
+	sub R0,R0,R0	;; R0 = 0
+	ld  R2,R0	;; R2 = 6
+	inc R2,R2 	;; R2 = 7
+	ld  R2,R2 	;; R2 - drugi broj
+	inc R2,R2	;; R2++
+	ld  R1,R0       ;; R1 = 6
+	inc R1,R1	;; R1 = 7
+	st  R2,R1	;; drugi broj + 1 storovan na 7
+	jmp frame_sync_rising_edge
+	
+
+decrease:
+	sub R0,R0,R0	;; R0 = 0
+	ld  R2,R0	;; R2 = 6
+	inc R2,R2 	;; R2 = 7
+	ld  R2,R2 	;; R2 - drugi broj
+	dec R2,R2	;; R2--
+	ld  R1,R0       ;; R1 = 6
+	inc R1,R1	;; R1 = 7
+	st  R2,R1	;; drugi broj - 1 storovan na 7
+	jmp frame_sync_rising_edge
+  	
+	
+
+	/*
+	dec R5,R5	;; vrati na x vrijednost
+	ld  R2,R0	;; R2 = 6
+	inc R2,R2	;; R2 = 7
+	ld  R0,R2	;; R0 - vrijednost drugog broja
+	add R0,R0,R1 	;; R0 + vrijednost y_pb
+	st  R0,R2	;; na lokaciju 7 u memoriji storovati to 
+	*/
+	jmp frame_sync_rising_edge
+;;99 i pomjeranje prvog broja za jedan vise i stavljanje drugog na 0
+slucaj_drugi_je_devet:	
+	/*
+	sub R0,R0,R0	;; R = 0
+	inc R5,R5	;; R5 - y_pb
+	ld  R1,R5	;; R1 = vrijednost -ypb
+	dec R5,R5	;; R2 - x_pb
+	mov R1,R1	;; R1 = R1
+	jmps smanji_drugi_devet	;; ako je jednako -1
+	sub R0,R0,R0    ;;R0 = 0
+	ld  R1,R0	;;R1 = 6
+	ld  R1,R1	;;R1 je prvi broj
+	inc R0,R0	;;R0 = 1
+	shl R0,R0	;;R0 = 2	
+	shl R0,R0	;;R0 = 4
+	shl R0,R0	;;R0 = 8
+	inc R0,R0	;;R0 = 9
+	sub R0,R1,R0	;;R0 = prvi broj - 9
+	jmpz ne_diraj	;;ako je i prvi broj = 9 i drugi broj = 9 nista se ne radi
+	sub R0,R0,R0	;;R0 = 0
+	ld  R1,R0	;;R1 = 6
+	ld  R2,R1	;;R2 = prvi broj
+	inc R2,R2	;;R2 = R2+1
+	st  R2,R1	;;R2 se cuva na lokaciju prvog broja
+	inc R1,R1	;;R1 = 7
+	st  R0,R1	;;R0 = 0 se cuva na lokaciju drugog broja 
+	jmp frame_sync_rising_edge
+
+
+	*/
+	
+
+
+	
+	
+smanji_drugi_devet:
+	/*
+	sub R0,R0,R0 	;; R0 = 0
+	ld  R1,R0	;; R1 = 6
+	inc R1,R1	;; R1 = 7
+	ld  R2,R1	;; R2 = drugi broj
+	dec R2,R2	;; R2 = R2 -1
+	st  R2,R1	;; R1 = R2-1
+	jmp frame_sync_rising_edge
+	*/
+
+slucaj_drugi_je_nula:
+	/*
+	sub R0,R0,R0 ;; R0 = 0
+	ld  R1,R5    ;; R1 = 0x200
+	inc R1,R1    ;; R1 = 0x201
+	ld  R1,R1    ;; R1 = y-pb
+	mov R1,R1    ;; R1 = R1
+	jmps smanji_slucaj_dn	;;ako je y-pb -1
+	sub R0,R0,R0 ;; R0 = 0
+	ld  R2,R0    ;; R2 = 6
+	inc R2,R2    ;; R2 = 7
+	ld  R0,R2    ;; R0 je drugi broj	
+	add R0,R1,R0 ;; R0 = y-pb + R0
+	st  R0,R2    ;; sacuvaj na drugi broj
+	jmp frame_sync_rising_edge
+	*/
+
+;; ovde ide i provjera za 00
+smanji_slucaj_dn:
+	/*
+	sub R0,R0,R0 	;; R0 = 0
+	ld  R1,R0	;; R1 = 6
+	ld  R1,R1	;; R1 = prvi broj
+	sub R0,R1,R0	;; oduzmi R1 od 0
+	jmpz ne_diraj	;; ako je R1 = 0 oba broja su nula i nista se nece pomjeriti
+	sub R0,R0,R0	;; R0 = 0
+	ld  R2,R0	;; R2 = 6
+	dec R1,R1	;; R1 = R1 - 1
+	st  R1,R2	;; sacuvaj R1 na adresu 6
+	sub R0,R0,R0	;; R0 = 0
+	ld  R2,R0	;; R2 = 6
+	inc R2,R2	;; R2 = 7
+	inc R0,R0	;; R0 = 1
+	shl R0,R0	;; R0 = 2
+	shl R0,R0	;; R0 = 4
+	shl R0,R0	;; R0 = 8
+	inc R0,R0	;; R0 = 9
+	st  R0,R2	;; storujem 9 na adresu 7
+	jmp frame_sync_rising_edge
+	*/
+
+
+ne_diraj:
+	jmp frame_sync_rising_edge
+		
+	
+	
+	
+
+
+algorithm:
+	sub R0,R0,R0
+	ld  R1,R0
+        ld  R2,R0
+	inc R2,R2
+        ld  R1,R1
+        ld  R2,R2
+        sub R0,R0,R0
+        sub R0,R2,R0
+        jmpz smanji_prvi_broj
+	jmp smanji_za_jedan
+        
+        
+
+
+smanji_prvi_broj:
+        sub R0,R0,R0
+        sub R0,R1,R0
+        jmpz resetuj
+        jmp smanji
+
+
+resetuj:
+ 	sub R0,R0,R0
+	ld  R1,R0
+	st  R0,R1
+	inc R1,R1
+	st  R0,R1
+        jmp frame_sync_rising_edge
+
+
+smanji:
+	sub R0,R0,R0 ;; R0 = 0
+	ld R1,R0	;; R1 = 6
+	ld R1,R1	;; R1 =cifra desetica
+	dec R1,R1	;; R1 --
+	ld R2,R0	;; R2 = 6
+	;;ld R2,R2	;; R2 = cifra desetica
+	st R1,R2	;; R2 = R1-1
+	sub R0,R0,R0	;; R0 = 0
+	ld  R1,R0	;; R1 = 6
+	inc R0,R0	;;
+	shl R0,R0
+	shl R0,R0
+	shl R0,R0
+	inc R0,R0	;; R0 = 9
+	inc R1,R1	;; R1 = 7
+	st  R0,R1
+	jmp frame_sync_rising_edge
+
+smanji_za_jedan:
+	sub R0,R0,R0
+	ld R1,R0
+	inc R1,R1
+	ld R2,R1
+	dec R2,R2
+	st R2,R1
+	jmp frame_sync_rising_edge
+	
+
+
+
+
+
+
+
+
+
