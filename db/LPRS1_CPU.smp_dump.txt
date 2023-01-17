@@ -1,0 +1,18 @@
+
+State Machine - |top|push_buttons_dec_io_ctrl:i_pbd|sDIR_PREV
+Name sDIR_PREV.DOWN sDIR_PREV.CENTER sDIR_PREV.RIGHT sDIR_PREV.LEFT sDIR_PREV.UP sDIR_PREV.NONE 
+sDIR_PREV.NONE 0 0 0 0 0 0 
+sDIR_PREV.UP 0 0 0 0 1 1 
+sDIR_PREV.LEFT 0 0 0 1 0 1 
+sDIR_PREV.RIGHT 0 0 1 0 0 1 
+sDIR_PREV.CENTER 0 1 0 0 0 1 
+sDIR_PREV.DOWN 1 0 0 0 0 1 
+
+State Machine - |top|push_buttons_dec_io_ctrl:i_pbd|sDIR
+Name sDIR.DOWN sDIR.CENTER sDIR.RIGHT sDIR.LEFT sDIR.UP sDIR.NONE 
+sDIR.NONE 0 0 0 0 0 0 
+sDIR.UP 0 0 0 0 1 1 
+sDIR.LEFT 0 0 0 1 0 1 
+sDIR.RIGHT 0 0 1 0 0 1 
+sDIR.CENTER 0 1 0 0 0 1 
+sDIR.DOWN 1 0 0 0 0 1 
